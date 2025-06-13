@@ -31,6 +31,7 @@ class ProductAdapter (
 
         holder.btnAtualizar.setOnClickListener {
             val intent = Intent(context, UpdateProduct::class.java )
+            intent.putExtra("uid", listProduct[position].uid)
             intent.putExtra("nome", listProduct[position].nome)
             intent.putExtra("quantidade", listProduct[position].quantidade)
             context.startActivity(intent)

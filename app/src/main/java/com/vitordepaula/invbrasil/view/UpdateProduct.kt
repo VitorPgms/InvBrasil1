@@ -10,6 +10,7 @@ import com.vitordepaula.invbrasil.AppDatabase
 import com.vitordepaula.invbrasil.R
 import com.vitordepaula.invbrasil.dao.ProductDao
 import com.vitordepaula.invbrasil.databinding.ActivityUpdateProductBinding
+import com.vitordepaula.invbrasil.model.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,7 +53,7 @@ class UpdateProduct : AppCompatActivity() {
                     mensagem = false
                 } else {
                     mensagem = true
-                    updateContact(uid, name, quantity)
+                    updateProduct(uid, name, quantity)
                 }
 
                 withContext(Dispatchers.Main){
@@ -69,9 +70,10 @@ class UpdateProduct : AppCompatActivity() {
     }
 
 
-    private fun updateContact(uid: Int, name: String, quantity:String){
+    private fun updateProduct(uid: Int, name: String, quantity: String) {
         productDao = AppDatabase.getIntance(this).productDao()
-        productDao.update(uid, name, quantity)
+        val updatedProduct = Product(uid, name, quantity)
+        productDao.update(updatedProduct)
     }
 
 

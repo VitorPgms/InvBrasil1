@@ -3,6 +3,7 @@ package com.vitordepaula.invbrasil.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.vitordepaula.invbrasil.model.Product
 
 @Dao
@@ -14,12 +15,9 @@ interface ProductDao {
     @Query("SELECT * FROM tabela_product ORDER BY nome ASC")
     fun get(): MutableList<Product>
 
-    @Query("UPDATE tabela_product SET nome = :novoNome, quantidade = :novaQuantidade " +
-    "WHERE uid = :id")
-    fun update(id: Int, novoNome: String, novaQuantidade: String)
+    @Update
+    fun update(product: Product)
 
     @Query("DELETE FROM tabela_product WHERE uid = :id ")
-    fun delete(id: Int){
-
-    }
+    suspend fun delete(id: Int):Int
 }

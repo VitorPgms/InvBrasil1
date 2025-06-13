@@ -69,7 +69,7 @@ class RegisterProduct : AppCompatActivity() {
     }
 
     private fun register(name: String, quantity: String){
-        val product = Product(name, quantity)
+        val product = Product(nome = name, quantidade = quantity)
         listProduct.add(product)
         productDao = AppDatabase.getIntance(this).productDao()
         productDao!!.inserir(listProduct)
