@@ -9,6 +9,11 @@
     android:background="@color/gray"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
     <Button
         android:id="@+id/btCadastrar"
         android:layout_width="wrap_content"
@@ -20,6 +25,20 @@
         android:padding="15dp"
         android:backgroundTint="@color/blue"
         android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/btEstoqueBaixo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mostrar Estoque Baixo"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:backgroundTint="@color/blue"
+        android:layout_margin="20dp"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProduct"

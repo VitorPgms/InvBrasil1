@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var productDao: ProductDao
     private lateinit var productAdapter: ProductAdapter
     private val _listProduct = MutableLiveData<MutableList<Product>>()
-
+    private var showLowStock = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,18 +32,39 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
+        productDao = AppDatabase.getIntance(this).productDao()
+
+        _listProduct.observe(this@MainActivity) { listProduct ->
+            val recyclerViewProduct = binding.recyclerViewProduct
+            recyclerViewProduct.layoutManager = LinearLayoutManager(this@MainActivity)
+            recyclerViewProduct.setHasFixedSize(true)
+            productAdapter = ProductAdapter(this@MainActivity, listProduct)
+            recyclerViewProduct.adapter = productAdapter
+        }
+
+        // Primeira carga dos produtos
         CoroutineScope(Dispatchers.IO).launch {
-            getProduct()
+            loadAllProducts()
+        }
 
-            withContext(Dispatchers.Main){
-                _listProduct.observe(this@MainActivity){ listProduct ->
-                    val recyclerViewProduct = binding.recyclerViewProduct
-                    recyclerViewProduct.layoutManager = LinearLayoutManager(this@MainActivity)
-                    recyclerViewProduct.setHasFixedSize(true)
-                    productAdapter = ProductAdapter(this@MainActivity, listProduct)
-                    recyclerViewProduct.adapter = productAdapter
-                    productAdapter.notifyDataSetChanged()
+        binding.btCadastrar.setOnClickListener {
+            val navigateRegistrationScreen = Intent(this, RegisterProduct::class.java)
+            startActivity(navigateRegistrationScreen)
+        }
 
+        binding.btEstoqueBaixo.setOnClickListener {
+            showLowStock = !showLowStock
+            CoroutineScope(Dispatchers.IO).launch {
+                if (showLowStock) {
+                    filterLowStock()
+                    withContext(Dispatchers.Main) {
+                        binding.btEstoqueBaixo.text = "Mostrar todos os produtos"
+                    }
+                } else {
+                    loadAllProducts()
+                    withContext(Dispatchers.Main) {
+                        binding.btEstoqueBaixo.text = "Mostrar apenas com estoque baixo"
+                    }
                 }
             }
         }
@@ -53,36 +74,32 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        binding.btCadastrar.setOnClickListener {
-            val navigateRegistrationScreen = Intent(this, RegisterProduct::class.java)
-            startActivity(navigateRegistrationScreen)
-        }
-
     }
 
     override fun onResume() {
         super.onResume()
-
+        // Atualiza a lista ao voltar do cadastro
         CoroutineScope(Dispatchers.IO).launch {
-            getProduct()
-
-            withContext(Dispatchers.Main){
-                _listProduct.observe(this@MainActivity) { listProduct ->
-                    val recyclerViewProduct = binding.recyclerViewProduct
-                    recyclerViewProduct.layoutManager = LinearLayoutManager(this@MainActivity)
-                    recyclerViewProduct.setHasFixedSize(true)
-                    productAdapter = ProductAdapter(this@MainActivity, listProduct)
-                    recyclerViewProduct.adapter = productAdapter
-                    productAdapter.notifyDataSetChanged()
-                }
+            if (showLowStock) {
+                filterLowStock()
+            } else {
+                loadAllProducts()
             }
         }
     }
 
-    private fun getProduct(){
-        productDao = AppDatabase.getIntance(this).productDao()
+    private suspend fun loadAllProducts() {
         val listProduct: MutableList<Product> = productDao.get()
         _listProduct.postValue(listProduct)
+    }
+
+    private suspend fun filterLowStock() {
+        val allProduct = productDao.get()
+        val productFilter = allProduct.filter {
+            val current = it.quantidade.toIntOrNull() ?: 0
+            val min = it.quantidadeMinima.toIntOrNull() ?: 0
+            current < min
+        }.toMutableList()
+        _listProduct.postValue(productFilter)
     }
 }
