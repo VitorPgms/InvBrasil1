@@ -33,12 +33,14 @@ class UpdateProduct : AppCompatActivity() {
             insets
         }
 
+        val uid = intent.extras!!.getInt("uid")
         val nameRecover = intent.extras?.getString("nome")
         val quantityRecover = intent.extras?.getString("quantidade")
-        val uid = intent.extras!!.getInt("uid")
+        val quantityMinRecover = intent.extras?.getString("quantidadeMinima")
 
         binding.editNome.setText(nameRecover)
         binding.editQuantity.setText(quantityRecover)
+        binding.editQuantityMin.setText(quantityMinRecover)
 
         binding.btnUpgrade.setOnClickListener {
 
@@ -46,14 +48,15 @@ class UpdateProduct : AppCompatActivity() {
 
                 val name = binding.editNome.text.toString()
                 val quantity = binding.editQuantity.text.toString()
+                val quantityMin = binding.editQuantityMin.text.toString()
 
                 val mensagem: Boolean
 
-                if(name.isEmpty() || quantity.isEmpty()){
+                if(name.isEmpty() || quantity.isEmpty() || quantityMin.isEmpty()){
                     mensagem = false
                 } else {
                     mensagem = true
-                    updateProduct(uid, name, quantity)
+                    updateProduct(uid, name, quantity, quantityMin)
                 }
 
                 withContext(Dispatchers.Main){
@@ -70,9 +73,9 @@ class UpdateProduct : AppCompatActivity() {
     }
 
 
-    private fun updateProduct(uid: Int, name: String, quantity: String) {
+    private fun updateProduct(uid: Int, name: String, quantity: String, quantityMin: String) {
         productDao = AppDatabase.getIntance(this).productDao()
-        val updatedProduct = Product(uid, name, quantity)
+        val updatedProduct = Product(uid, name, quantity, quantityMin)
         productDao.update(updatedProduct)
     }
 

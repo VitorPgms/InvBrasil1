@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.vitordepaula.invbrasil.AppDatabase
 import com.vitordepaula.invbrasil.databinding.ProductItemBinding
@@ -26,14 +27,26 @@ class ProductAdapter (
     override fun getItemCount(): Int = listProduct.size
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.txtNome.text = listProduct[position].nome
-        holder.txtQuantity.text = listProduct[position].quantidade
+        val product = listProduct[position]
+        holder.txtNome.text = product.nome
+        holder.txtQuantity.text = "Qtd: ${product.quantidade}"
+
+        val quantityCurrent = product.quantidade.toIntOrNull() ?: 0
+        val quantityMin = product.quantidadeMinima.toIntOrNull() ?: 0
+
+        if (quantityCurrent < quantityMin){
+            holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_light))
+            holder.txtQuantity.text = "Baixo: ${product.quantidade}"
+        } else {
+            holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.black))
+        }
 
         holder.btnAtualizar.setOnClickListener {
             val intent = Intent(context, UpdateProduct::class.java )
             intent.putExtra("uid", listProduct[position].uid)
             intent.putExtra("nome", listProduct[position].nome)
             intent.putExtra("quantidade", listProduct[position].quantidade)
+            intent.putExtra("quantidadeMinima", listProduct[position].quantidadeMinima)
             context.startActivity(intent)
 
         }

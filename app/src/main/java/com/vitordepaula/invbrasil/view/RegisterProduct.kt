@@ -40,18 +40,20 @@ class RegisterProduct : AppCompatActivity() {
 
                 val name = binding.editNome.text.toString()
                 val quantity = binding.editQuantity.text.toString()
+                val quantityMin = binding.editQuantityMin.text.toString()
                 val mensagem: Boolean
 
                 if(name.isEmpty() || quantity.isEmpty()){
                     mensagem = false
                 } else {
                     mensagem = true
-                    register(name, quantity)
+                    register(name, quantity, quantityMin)
                 }
 
                 withContext(Dispatchers.Main){
                     if(mensagem){
                         Toast.makeText(applicationContext, "Sucesso ao Registrar Produto", Toast.LENGTH_SHORT).show()
+                        finish()
                     } else {
                         Toast.makeText(applicationContext, "Preencha Todos os Campos", Toast.LENGTH_SHORT).show()
                     }
@@ -68,8 +70,8 @@ class RegisterProduct : AppCompatActivity() {
 
     }
 
-    private fun register(name: String, quantity: String){
-        val product = Product(nome = name, quantidade = quantity)
+    private fun register(name: String, quantity: String, quantityMin: String){
+        val product = Product(nome = name, quantidade = quantity, quantidadeMinima = quantityMin)
         listProduct.add(product)
         productDao = AppDatabase.getIntance(this).productDao()
         productDao!!.inserir(listProduct)
