@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             loadAllProducts()
         }
 
-        binding.btCadastrar.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             val navigateRegistrationScreen = Intent(this, RegisterProduct::class.java)
             startActivity(navigateRegistrationScreen)
         }
