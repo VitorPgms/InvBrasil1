@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.vitordepaula.invbrasil.AppDatabase
@@ -28,7 +29,7 @@ class ProductAdapter (
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = listProduct[position]
-        holder.txtNome.text = product.nome
+        holder.txtNome.text = "Nome: ${product.nome}"
         holder.txtQuantity.text = "Qtd: ${product.quantidade}"
 
         val quantityCurrent = product.quantidade.toIntOrNull() ?: 0
@@ -42,29 +43,39 @@ class ProductAdapter (
         }
 
         holder.btnAtualizar.setOnClickListener {
-            val intent = Intent(context, UpdateProduct::class.java )
-            intent.putExtra("uid", listProduct[position].uid)
-            intent.putExtra("nome", listProduct[position].nome)
-            intent.putExtra("quantidade", listProduct[position].quantidade)
-            intent.putExtra("quantidadeMinima", listProduct[position].quantidadeMinima)
+            val intent = Intent(context, UpdateProduct::class.java ).apply {
+                putExtra("uid", listProduct[position].uid)
+                putExtra("nome", listProduct[position].nome)
+                putExtra("quantidade", listProduct[position].quantidade)
+                putExtra("quantidadeMinima", listProduct[position].quantidadeMinima)
+            }
             context.startActivity(intent)
 
         }
 
         holder.btnDeletar.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setTitle("Confirmação")
+                .setMessage("Tem certeza que deseja excluir este produto?")
+                .setPositiveButton("Sim") {_,_ ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    val productToDelete = listProduct[holder.adapterPosition]
+                    val productDao = AppDatabase.getIntance(context).productDao()
+                    productDao.delete(productToDelete.uid)
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val product = listProduct[position]
-                val productDao = AppDatabase.getIntance(context).productDao()
-                productDao.delete(product.uid)
-                listProduct.remove(product)
-
-                withContext(Dispatchers.Main){
-                    notifyDataSetChanged()
+                    withContext(Dispatchers.Main) {
+                        val index = holder.adapterPosition
+                        if(index != RecyclerView.NO_POSITION){
+                            listProduct.removeAt(index)
+                            notifyItemRemoved(index)
+                        }
+                    }
                 }
-
             }
+                .setNegativeButton("Cancelar", null)
+                .show()
         }
+
     }
 
 
