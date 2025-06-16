@@ -37,10 +37,14 @@ class UpdateProduct : AppCompatActivity() {
         val nameRecover = intent.extras?.getString("nome")
         val quantityRecover = intent.extras?.getString("quantidade")
         val quantityMinRecover = intent.extras?.getString("quantidadeMinima")
+        val colorRecover = intent.extras?.getString("cor")
+        val priceRecover = intent.extras?.getString("preco")
 
         binding.editNome.setText(nameRecover)
         binding.editQuantity.setText(quantityRecover)
         binding.editQuantityMin.setText(quantityMinRecover)
+        binding.editColor.setText(colorRecover)
+        binding.editPrice.setText(priceRecover)
 
         binding.btnUpgrade.setOnClickListener {
 
@@ -49,14 +53,16 @@ class UpdateProduct : AppCompatActivity() {
                 val name = binding.editNome.text.toString()
                 val quantity = binding.editQuantity.text.toString()
                 val quantityMin = binding.editQuantityMin.text.toString()
+                val color = binding.editColor.text.toString()
+                val price = binding.editPrice.text.toString()
 
                 val mensagem: Boolean
 
-                if(name.isEmpty() || quantity.isEmpty() || quantityMin.isEmpty()){
+                if(name.isEmpty() || quantity.isEmpty() || quantityMin.isEmpty() || price.isEmpty()){
                     mensagem = false
                 } else {
                     mensagem = true
-                    updateProduct(uid, name, quantity, quantityMin)
+                    updateProduct(uid, name, quantity, quantityMin, color, price)
                 }
 
                 withContext(Dispatchers.Main){
@@ -73,9 +79,9 @@ class UpdateProduct : AppCompatActivity() {
     }
 
 
-    private fun updateProduct(uid: Int, name: String, quantity: String, quantityMin: String) {
+    private fun updateProduct(uid: Int, name: String, quantity: String, quantityMin: String, color: String, price :String) {
         productDao = AppDatabase.getIntance(this).productDao()
-        val updatedProduct = Product(uid, name, quantity, quantityMin)
+        val updatedProduct = Product(uid, name, quantity, quantityMin, color, price)
         productDao.update(updatedProduct)
     }
 

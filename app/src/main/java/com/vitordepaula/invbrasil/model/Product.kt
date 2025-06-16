@@ -9,5 +9,7 @@ data class Product (
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "nome") val nome: String,
     @ColumnInfo(name = "quantidade") val quantidade: String,
-    @ColumnInfo(name = "quantidadeMinima") val quantidadeMinima: String
+    @ColumnInfo(name = "quantidadeMinima") val quantidadeMinima: String,
+    @ColumnInfo(name = "cor") val cor: String,
+    @ColumnInfo(name = "preco") val preco: String
 )

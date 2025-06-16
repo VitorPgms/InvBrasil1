@@ -31,6 +31,8 @@ class ProductAdapter (
         val product = listProduct[position]
         holder.txtNome.text = "Nome: ${product.nome}"
         holder.txtQuantity.text = "Qtd: ${product.quantidade}"
+        holder.txtColor.text = "Cor: ${product.cor}"
+        holder.txtPrice.text = "Preço: ${product.preco}"
 
         val quantityCurrent = product.quantidade.toIntOrNull() ?: 0
         val quantityMin = product.quantidadeMinima.toIntOrNull() ?: 0
@@ -48,6 +50,8 @@ class ProductAdapter (
                 putExtra("nome", listProduct[position].nome)
                 putExtra("quantidade", listProduct[position].quantidade)
                 putExtra("quantidadeMinima", listProduct[position].quantidadeMinima)
+                putExtra("cor", listProduct[position].cor)
+                putExtra("preco", listProduct[position].preco)
             }
             context.startActivity(intent)
 
@@ -83,6 +87,8 @@ class ProductAdapter (
     inner class ProductViewHolder(binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
         val txtNome = binding.txtNome
         val txtQuantity = binding.txtQuantity
+        val txtColor = binding.txtColor
+        val txtPrice = binding.txtPrice
 
         val btnAtualizar = binding.btnAtualizar
         val btnDeletar = binding.btnDeletar

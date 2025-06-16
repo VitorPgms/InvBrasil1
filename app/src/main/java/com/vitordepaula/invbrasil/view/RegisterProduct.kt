@@ -41,13 +41,15 @@ class RegisterProduct : AppCompatActivity() {
                 val name = binding.editNome.text.toString()
                 val quantity = binding.editQuantity.text.toString()
                 val quantityMin = binding.editQuantityMin.text.toString()
+                val color = binding.editColor.text.toString()
+                val price = binding.editPrice.text.toString()
                 val mensagem: Boolean
 
-                if(name.isEmpty() || quantity.isEmpty()){
+                if(name.isEmpty() || quantity.isEmpty() || quantityMin.isEmpty() || price.isEmpty()){
                     mensagem = false
                 } else {
                     mensagem = true
-                    register(name, quantity, quantityMin)
+                    register(name, quantity, quantityMin, color, price)
                 }
 
                 withContext(Dispatchers.Main){
@@ -70,8 +72,8 @@ class RegisterProduct : AppCompatActivity() {
 
     }
 
-    private fun register(name: String, quantity: String, quantityMin: String){
-        val product = Product(nome = name, quantidade = quantity, quantidadeMinima = quantityMin)
+    private fun register(name: String, quantity: String, quantityMin: String, color: String, price: String){
+        val product = Product(nome = name, quantidade = quantity, quantidadeMinima = quantityMin, cor = color, preco = price)
         listProduct.add(product)
         productDao = AppDatabase.getIntance(this).productDao()
         productDao!!.inserir(listProduct)

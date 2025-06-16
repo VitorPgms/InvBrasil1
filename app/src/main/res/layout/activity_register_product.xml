@@ -54,6 +54,32 @@
             android:layout_marginEnd="20dp"
             android:gravity="center"/>
 
+        <EditText
+            android:id="@+id/editColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Cor"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/editPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Preço"
+            android:inputType="number"
+            android:maxLength="6"
+            android:padding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"/>
+
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
