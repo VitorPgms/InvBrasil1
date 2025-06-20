@@ -19,6 +19,9 @@
             android:name=".view.UpdateProduct"
             android:exported="false" />
         <activity
+            android:name=".view.NewCategory"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

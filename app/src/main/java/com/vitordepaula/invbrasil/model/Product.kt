@@ -11,5 +11,6 @@ data class Product (
     @ColumnInfo(name = "quantidade") val quantidade: String,
     @ColumnInfo(name = "quantidadeMinima") val quantidadeMinima: String,
     @ColumnInfo(name = "cor") val cor: String,
-    @ColumnInfo(name = "preco") val preco: String
+    @ColumnInfo(name = "preco") val preco: String,
+    @ColumnInfo(name = "categoriaId") val categoriaId: Int?
 )

@@ -1,6 +1,7 @@
 package com.vitordepaula.invbrasil.view
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +9,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.vitordepaula.invbrasil.AppDatabase
 import com.vitordepaula.invbrasil.R
+import com.vitordepaula.invbrasil.dao.CategoryDao
 import com.vitordepaula.invbrasil.dao.ProductDao
 import com.vitordepaula.invbrasil.databinding.ActivityUpdateProductBinding
+import com.vitordepaula.invbrasil.model.Category
 import com.vitordepaula.invbrasil.model.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +23,9 @@ class UpdateProduct : AppCompatActivity() {
 
     private lateinit var binding: ActivityUpdateProductBinding
     private lateinit var productDao: ProductDao
+    private lateinit var categoryDao: CategoryDao
+    private var category: List<Category> = listOf()
+    private var categoryIdCurrent: Int? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,18 +39,24 @@ class UpdateProduct : AppCompatActivity() {
             insets
         }
 
+        productDao = AppDatabase.getIntance(this).productDao()
+        categoryDao = AppDatabase.getIntance(this).categoryDao()
+
         val uid = intent.extras!!.getInt("uid")
         val nameRecover = intent.extras?.getString("nome")
         val quantityRecover = intent.extras?.getString("quantidade")
         val quantityMinRecover = intent.extras?.getString("quantidadeMinima")
         val colorRecover = intent.extras?.getString("cor")
         val priceRecover = intent.extras?.getString("preco")
+        categoryIdCurrent = intent.extras?.getInt("categoriaId")
 
         binding.editNome.setText(nameRecover)
         binding.editQuantity.setText(quantityRecover)
         binding.editQuantityMin.setText(quantityMinRecover)
         binding.editColor.setText(colorRecover)
         binding.editPrice.setText(priceRecover)
+
+        loadCategory()
 
         binding.btnUpgrade.setOnClickListener {
 
@@ -55,14 +67,15 @@ class UpdateProduct : AppCompatActivity() {
                 val quantityMin = binding.editQuantityMin.text.toString()
                 val color = binding.editColor.text.toString()
                 val price = binding.editPrice.text.toString()
+                val categorySelect = binding.spinnerCategory.selectedItemPosition
+                val categoryId = category.getOrNull(categorySelect)?.id
 
-                val mensagem: Boolean
+                val mensagem = name.isNotEmpty() && quantity.isNotEmpty() &&
+                        quantityMin.isNotEmpty() && price.isNotEmpty()
 
-                if(name.isEmpty() || quantity.isEmpty() || quantityMin.isEmpty() || price.isEmpty()){
-                    mensagem = false
-                } else {
-                    mensagem = true
-                    updateProduct(uid, name, quantity, quantityMin, color, price)
+                if(mensagem){
+                    val updatedProduct = Product(uid, name, quantity, quantityMin, color, price, categoryId)
+                    productDao.update(updatedProduct)
                 }
 
                 withContext(Dispatchers.Main){
@@ -79,10 +92,24 @@ class UpdateProduct : AppCompatActivity() {
     }
 
 
-    private fun updateProduct(uid: Int, name: String, quantity: String, quantityMin: String, color: String, price :String) {
-        productDao = AppDatabase.getIntance(this).productDao()
-        val updatedProduct = Product(uid, name, quantity, quantityMin, color, price)
-        productDao.update(updatedProduct)
+    private fun loadCategory() {
+        CoroutineScope(Dispatchers.IO).launch {
+            category = categoryDao.getAll()
+            val name = category.map { it.nome }
+
+            withContext(Dispatchers.Main) {
+                val adapter = ArrayAdapter(this@UpdateProduct, android.R.layout.simple_spinner_item, name)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerCategory.adapter = adapter
+
+                categoryIdCurrent?.let { id ->
+                    val index = category.indexOfFirst { it.id == id }
+                    if (index >= 0) {
+                        binding.spinnerCategory.setSelection(index)
+                    }
+                }
+            }
+        }
     }
 
 

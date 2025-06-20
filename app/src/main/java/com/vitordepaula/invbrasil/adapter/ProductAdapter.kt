@@ -37,11 +37,29 @@ class ProductAdapter (
         val quantityCurrent = product.quantidade.toIntOrNull() ?: 0
         val quantityMin = product.quantidadeMinima.toIntOrNull() ?: 0
 
-        if (quantityCurrent < quantityMin){
-            holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_light))
-            holder.txtQuantity.text = "Baixo: ${product.quantidade}"
-        } else {
-            holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.black))
+        when {
+            quantityCurrent == 0 -> {
+                holder.txtQuantity.text = "Esgotado"
+                holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_light))
+            }
+            quantityCurrent < quantityMin -> {
+                holder.txtQuantity.text = "Baixo: ${product.quantidade}"
+                holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
+            }
+            else -> {
+                holder.txtQuantity.text = "Qtd: ${product.quantidade}"
+                holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.black))
+            }
+        }
+
+        holder.itemView.setOnClickListener {
+            if (quantityCurrent == 0) {
+                AlertDialog.Builder(context)
+                    .setTitle("Estoque zerado")
+                    .setMessage("O produto ${product.nome} está com estoque esgotado!")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
         }
 
         holder.btnAtualizar.setOnClickListener {
@@ -52,6 +70,7 @@ class ProductAdapter (
                 putExtra("quantidadeMinima", listProduct[position].quantidadeMinima)
                 putExtra("cor", listProduct[position].cor)
                 putExtra("preco", listProduct[position].preco)
+                putExtra("categoriaId", listProduct[position].categoriaId)
             }
             context.startActivity(intent)
 

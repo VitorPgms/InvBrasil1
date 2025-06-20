@@ -1,6 +1,8 @@
 package com.vitordepaula.invbrasil.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.vitordepaula.invbrasil.AppDatabase
 import com.vitordepaula.invbrasil.R
+import com.vitordepaula.invbrasil.dao.CategoryDao
 import com.vitordepaula.invbrasil.dao.ProductDao
 import com.vitordepaula.invbrasil.databinding.ActivityRegisterProductBinding
+import com.vitordepaula.invbrasil.model.Category
 import com.vitordepaula.invbrasil.model.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +24,8 @@ class RegisterProduct : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterProductBinding
     private var productDao: ProductDao? = null
+    private lateinit var categoryDao: CategoryDao
+    private var category: List<Category> = listOf()
     private val listProduct: MutableList<Product> = mutableListOf()
 
 
@@ -34,6 +40,9 @@ class RegisterProduct : AppCompatActivity() {
             insets
         }
 
+        productDao = AppDatabase.getIntance(this).productDao()
+        categoryDao = AppDatabase.getIntance(this).categoryDao()
+
         binding.btnRegister.setOnClickListener {
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -43,13 +52,18 @@ class RegisterProduct : AppCompatActivity() {
                 val quantityMin = binding.editQuantityMin.text.toString()
                 val color = binding.editColor.text.toString()
                 val price = binding.editPrice.text.toString()
-                val mensagem: Boolean
+                val categorySelect = binding.spinnerCategory.selectedItemPosition
+                val categoryId = category.getOrNull(categorySelect)?.id
 
-                if(name.isEmpty() || quantity.isEmpty() || quantityMin.isEmpty() || price.isEmpty()){
-                    mensagem = false
-                } else {
-                    mensagem = true
-                    register(name, quantity, quantityMin, color, price)
+                val mensagem: Boolean = name.isNotEmpty() && quantity.isNotEmpty() &&
+                        quantityMin.isNotEmpty() && price.isNotEmpty()
+
+                if(mensagem){
+                    val product = Product(nome = name, quantidade = quantity, quantidadeMinima = quantityMin, cor = color, preco = price, categoriaId = categoryId)
+                    listProduct.clear()
+                    listProduct.add(product)
+                    productDao?.inserir(listProduct)
+
                 }
 
                 withContext(Dispatchers.Main){
@@ -64,6 +78,10 @@ class RegisterProduct : AppCompatActivity() {
 
         }
 
+        binding.btNewCategory.setOnClickListener {
+            startActivity(Intent(this, NewCategory::class.java))
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -72,12 +90,22 @@ class RegisterProduct : AppCompatActivity() {
 
     }
 
-    private fun register(name: String, quantity: String, quantityMin: String, color: String, price: String){
-        val product = Product(nome = name, quantidade = quantity, quantidadeMinima = quantityMin, cor = color, preco = price)
-        listProduct.add(product)
-        productDao = AppDatabase.getIntance(this).productDao()
-        productDao!!.inserir(listProduct)
+    override fun onResume() {
+        super.onResume()
+        loadCategory()
+    }
 
+    private fun loadCategory() {
+        CoroutineScope(Dispatchers.IO).launch {
+            category = categoryDao.getAll()
+            val nomesCategorias = category.map { it.nome }
+
+            withContext(Dispatchers.Main) {
+                val adapter = ArrayAdapter(this@RegisterProduct, android.R.layout.simple_spinner_item, nomesCategorias)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerCategory.adapter = adapter
+            }
+        }
     }
 
 }
