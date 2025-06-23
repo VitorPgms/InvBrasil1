@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.time.times
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             recyclerViewProduct.setHasFixedSize(true)
             productAdapter = ProductAdapter(this@MainActivity, listProduct)
             recyclerViewProduct.adapter = productAdapter
+            calculateTotal(listProduct)
         }
 
         // Primeira carga dos produtos
@@ -91,6 +93,7 @@ class MainActivity : AppCompatActivity() {
     private suspend fun loadAllProducts() {
         val listProduct: MutableList<Product> = productDao.get()
         _listProduct.postValue(listProduct)
+        calculateTotal(listProduct)
     }
 
     private suspend fun filterLowStock() {
@@ -101,5 +104,24 @@ class MainActivity : AppCompatActivity() {
             current < min
         }.toMutableList()
         _listProduct.postValue(productFilter)
+        calculateTotal(productFilter)
+    }
+
+    private fun calculateTotal(list: List<Product>){
+        var totalQuantity = 0
+        var totalAmount = 0.0
+
+        for(product in list) {
+            val qtd = product.quantidade.toIntOrNull() ?: 0
+            val price = product.preco.replace(",",".").toDoubleOrNull() ?: 0.0
+
+            totalQuantity += qtd
+            totalAmount += qtd * price
+        }
+
+        runOnUiThread{
+            binding.txtTotalQuantity.text = "Total de itens: $totalQuantity"
+            binding.txtTotalAmount.text = "Valor total : R$ %.2f".format(totalAmount)
+        }
     }
 }
