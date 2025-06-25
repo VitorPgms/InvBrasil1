@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">InvBrasil</string>
+
+    <!--Screen ScreenDashboard-->
+    <string name="app_na">InvBrasil</string>
+
+    <!--Screen MainActivity-->
+    <string name="name_main">Produtos</string>
+    <string name="text_low_stock">Mostrar baixo estoque</string>
+
+    <!--Screen RegisterProduct-->
+    <string name="app_ne">InvBrasil</string>
+
+    <!--Screen UpdateProduct-->
+    <string name="app_me">InvBrasil</string>
+
+    <!--Screen NewCategory-->
+    <string name="app_nae">InvBrasil</string>
+
 </resources>

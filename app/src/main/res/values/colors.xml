@@ -4,4 +4,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#2196F3</color>
     <color name="gray">#D7D7D7</color>
+    <color name="red">#FD0000</color>
+
+    <!-- Cores Paleta -->
+
+    <color name="background">#090040</color>
+    <color name="primaria">#00C8A2</color>
+    <color name="secundaria">#FFFFFF</color>
+    <color name="erro">#FFBFB8</color>
+
 </resources>

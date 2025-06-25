@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B4B4B4"
+    tools:context=".view.ScreenDashboard">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:background="@color/background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/icPerfil"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_perfil"
+        android:layout_margin="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtApresentacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Olá"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtNameAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vitor de Paula"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtApresentacao"/>
+
+    <TextView
+        android:id="@+id/txtValor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valor"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/txtApresentacao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <TextView
+        android:id="@+id/txtTotalAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R$25.000"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/txtValor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/statusCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/txtTotalAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_card_item"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Produto"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="250"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_card_red"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Baixo Estoque"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"/>
+
+            <TextView
+                android:id="@+id/txtLowStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtGerenciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gerenciamento"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/statusCard"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:alignmentMode="alignMargins"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/txtGerenciar"
+        >
+
+        <LinearLayout
+            android:id="@+id/btnListProduct"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_item"
+            android:gravity="center"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_product"
+                android:contentDescription="Ícone Produtos" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Produtos"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnArchivo"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_item"
+            android:gravity="center"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_archive"
+                android:contentDescription="Ícone Produtos" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gerar arquivo"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnCategory"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_item"
+            android:gravity="center"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_category"
+                android:contentDescription="Ícone Produtos" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categoria"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnExit"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_item"
+            android:gravity="center"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_exit"
+                android:contentDescription="Ícone Produtos" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sair"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+
+
+
+
+
+
+
+    </GridLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

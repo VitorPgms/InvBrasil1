@@ -12,6 +12,8 @@ import com.vitordepaula.invbrasil.adapter.ProductAdapter
 import com.vitordepaula.invbrasil.dao.ProductDao
 import com.vitordepaula.invbrasil.databinding.ActivityMainBinding
 import com.vitordepaula.invbrasil.model.Product
+import com.vitordepaula.invbrasil.repository.ProductRepository
+import com.vitordepaula.invbrasil.util.StockCalculator
 import com.vitordepaula.invbrasil.view.RegisterProduct
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,8 +24,8 @@ import kotlin.time.times
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var productDao: ProductDao
     private lateinit var productAdapter: ProductAdapter
+    private lateinit var repository: ProductRepository
     private val _listProduct = MutableLiveData<MutableList<Product>>()
     private var showLowStock = false
 
@@ -33,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        productDao = AppDatabase.getIntance(this).productDao()
+        val dao = AppDatabase.getIntance(this).productDao()
+        repository = ProductRepository(dao)
 
         _listProduct.observe(this@MainActivity) { listProduct ->
             val recyclerViewProduct = binding.recyclerViewProduct
@@ -91,37 +94,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun loadAllProducts() {
-        val listProduct: MutableList<Product> = productDao.get()
+        val listProduct = repository.getAll()
         _listProduct.postValue(listProduct)
-        calculateTotal(listProduct)
     }
 
     private suspend fun filterLowStock() {
-        val allProduct = productDao.get()
-        val productFilter = allProduct.filter {
-            val current = it.quantidade.toIntOrNull() ?: 0
-            val min = it.quantidadeMinima.toIntOrNull() ?: 0
-            current < min
-        }.toMutableList()
+        val productFilter = repository.getLowStock()
         _listProduct.postValue(productFilter)
-        calculateTotal(productFilter)
     }
 
     private fun calculateTotal(list: List<Product>){
-        var totalQuantity = 0
-        var totalAmount = 0.0
-
-        for(product in list) {
-            val qtd = product.quantidade.toIntOrNull() ?: 0
-            val price = product.preco.replace(",",".").toDoubleOrNull() ?: 0.0
-
-            totalQuantity += qtd
-            totalAmount += qtd * price
-        }
+        val (totalQuantity, totalAmount) = StockCalculator.calculateTotal(list)
 
         runOnUiThread{
-            binding.txtTotalQuantity.text = "Total de itens: $totalQuantity"
-            binding.txtTotalAmount.text = "Valor total : R$ %.2f".format(totalAmount)
+            //binding.txtTotalQuantity.text = "Total de itens: $totalQuantity"
+            //binding.txtTotalAmount.text = "Valor total : R$ %.2f".format(totalAmount)
         }
     }
 }

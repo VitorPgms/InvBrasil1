@@ -14,6 +14,7 @@ import com.vitordepaula.invbrasil.dao.ProductDao
 import com.vitordepaula.invbrasil.databinding.ActivityUpdateProductBinding
 import com.vitordepaula.invbrasil.model.Category
 import com.vitordepaula.invbrasil.model.Product
+import com.vitordepaula.invbrasil.repository.ProductRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,8 +23,8 @@ import kotlinx.coroutines.withContext
 class UpdateProduct : AppCompatActivity() {
 
     private lateinit var binding: ActivityUpdateProductBinding
-    private lateinit var productDao: ProductDao
     private lateinit var categoryDao: CategoryDao
+    private lateinit var repository: ProductRepository
     private var category: List<Category> = listOf()
     private var categoryIdCurrent: Int? = null
 
@@ -39,7 +40,8 @@ class UpdateProduct : AppCompatActivity() {
             insets
         }
 
-        productDao = AppDatabase.getIntance(this).productDao()
+        val dao = AppDatabase.getIntance(this).productDao()
+        repository = ProductRepository(dao)
         categoryDao = AppDatabase.getIntance(this).categoryDao()
 
         val uid = intent.extras!!.getInt("uid")
@@ -75,7 +77,7 @@ class UpdateProduct : AppCompatActivity() {
 
                 if(mensagem){
                     val updatedProduct = Product(uid, name, quantity, quantityMin, color, price, categoryId)
-                    productDao.update(updatedProduct)
+                    repository.update(updatedProduct)
                 }
 
                 withContext(Dispatchers.Main){

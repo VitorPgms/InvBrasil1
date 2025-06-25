@@ -15,6 +15,7 @@ import com.vitordepaula.invbrasil.dao.ProductDao
 import com.vitordepaula.invbrasil.databinding.ActivityRegisterProductBinding
 import com.vitordepaula.invbrasil.model.Category
 import com.vitordepaula.invbrasil.model.Product
+import com.vitordepaula.invbrasil.repository.ProductRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,8 +24,9 @@ import kotlinx.coroutines.withContext
 class RegisterProduct : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterProductBinding
-    private var productDao: ProductDao? = null
     private lateinit var categoryDao: CategoryDao
+    private lateinit var repository: ProductRepository
+    private var productDao: ProductDao? = null
     private var category: List<Category> = listOf()
     private val listProduct: MutableList<Product> = mutableListOf()
 
@@ -40,7 +42,8 @@ class RegisterProduct : AppCompatActivity() {
             insets
         }
 
-        productDao = AppDatabase.getIntance(this).productDao()
+        val dao = AppDatabase.getIntance(this).productDao()
+        repository = ProductRepository(dao)
         categoryDao = AppDatabase.getIntance(this).categoryDao()
 
         binding.btnRegister.setOnClickListener {
@@ -62,7 +65,7 @@ class RegisterProduct : AppCompatActivity() {
                     val product = Product(nome = name, quantidade = quantity, quantidadeMinima = quantityMin, cor = color, preco = price, categoriaId = categoryId)
                     listProduct.clear()
                     listProduct.add(product)
-                    productDao?.inserir(listProduct)
+                    repository.insert(product)
 
                 }
 
