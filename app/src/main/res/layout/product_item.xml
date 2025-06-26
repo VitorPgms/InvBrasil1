@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/containerMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="15dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginStart="25dp"
-    android:layout_marginEnd="25dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
     android:padding="10dp"
-    android:background="@drawable/border_layout">
+    android:background="@drawable/bg_card_item">
 
     <TextView
         android:id="@+id/txtNome"
@@ -24,61 +25,61 @@
         />
 
 
-    <TextView
-        android:id="@+id/txtQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quantidade"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_gravity="start"
-        android:layout_marginStart="10dp"/>
-
-    <TextView
-        android:id="@+id/txtColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cor"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_gravity="start"
-        android:layout_marginStart="10dp"/>
-
-    <TextView
-        android:id="@+id/txtPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Preço"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_gravity="start"
-        android:layout_marginStart="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        android:paddingEnd="20dp">
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/btnAtualizar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_edit"
-            />
 
-        <ImageView
-            android:id="@+id/btnDeletar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_delete"
-            android:layout_marginStart="10dp"
-            />
 
+        <TextView
+            android:id="@+id/txtQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantidade"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"/>
+
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preço"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="end"
+            android:layout_marginStart="120dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:paddingEnd="14dp">
+
+            <ImageView
+                android:id="@+id/btnAtualizar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_edit"
+                />
+
+            <ImageView
+                android:id="@+id/btnDeletar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_delete"
+                android:layout_marginStart="10dp"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 

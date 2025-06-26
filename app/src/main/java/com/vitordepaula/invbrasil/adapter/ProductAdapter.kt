@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.vitordepaula.invbrasil.AppDatabase
+import com.vitordepaula.invbrasil.R
 import com.vitordepaula.invbrasil.databinding.ProductItemBinding
 import com.vitordepaula.invbrasil.model.Product
 import com.vitordepaula.invbrasil.view.UpdateProduct
@@ -31,8 +32,7 @@ class ProductAdapter (
         val product = listProduct[position]
         holder.txtNome.text = "Nome: ${product.nome}"
         holder.txtQuantity.text = "Qtd: ${product.quantidade}"
-        holder.txtColor.text = "Cor: ${product.cor}"
-        holder.txtPrice.text = "Preço: ${product.preco}"
+        holder.txtPrice.text = "R$${product.preco}"
 
         val quantityCurrent = product.quantidade.toIntOrNull() ?: 0
         val quantityMin = product.quantidadeMinima.toIntOrNull() ?: 0
@@ -45,6 +45,7 @@ class ProductAdapter (
             quantityCurrent < quantityMin -> {
                 holder.txtQuantity.text = "Baixo: ${product.quantidade}"
                 holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
+                holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_card_red)
             }
             else -> {
                 holder.txtQuantity.text = "Qtd: ${product.quantidade}"
@@ -106,8 +107,8 @@ class ProductAdapter (
     inner class ProductViewHolder(binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
         val txtNome = binding.txtNome
         val txtQuantity = binding.txtQuantity
-        val txtColor = binding.txtColor
         val txtPrice = binding.txtPrice
+        val container = binding.containerMain
 
         val btnAtualizar = binding.btnAtualizar
         val btnDeletar = binding.btnDeletar
