@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".view.ScreenSale">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Venda"
+        android:textSize="30sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"/>
+    <EditText
+        android:id="@+id/editNameClient"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Nome"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
+    <EditText
+        android:id="@+id/editAdressClient"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Endereço"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
+    <Spinner
+        android:id="@+id/spinnerProdutos"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <EditText
+        android:id="@+id/editQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Endereço"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
+    <Button
+        android:id="@+id/btnRegisterSale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"/>
+</LinearLayout>
+

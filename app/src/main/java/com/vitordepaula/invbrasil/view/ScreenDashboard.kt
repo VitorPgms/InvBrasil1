@@ -42,6 +42,11 @@ class ScreenDashboard : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnCategory.setOnClickListener{
+            val intent = Intent(this, ScreenSale::class.java)
+            startActivity(intent)
+        }
+
         loadTotais()
     }
 
