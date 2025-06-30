@@ -152,6 +152,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <GridLayout
+        android:id="@+id/containerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="2"
@@ -191,7 +192,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btnArchivo"
+            android:id="@+id/btnSale"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_margin="8dp"
@@ -206,13 +207,13 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_archive"
+                android:src="@drawable/ic_sale"
                 android:contentDescription="Ícone Produtos" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gerar arquivo"
+                android:text="Vendas"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
@@ -260,30 +261,53 @@
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
             android:focusable="true">
+
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_exit"
+                android:src="@drawable/ic_archive"
                 android:contentDescription="Ícone Produtos" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sair"
+                android:text="Gerar Arquivo"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
                 android:layout_marginTop="8dp" />
         </LinearLayout>
-
-
-
-
-
-
-
-
     </GridLayout>
+    <LinearLayout
+        android:id="@+id/btnSair"
+        android:layout_width="180dp"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:orientation="vertical"
+        android:background="@drawable/bg_card_item"
+        android:gravity="center"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@id/containerBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_exit"
+            android:contentDescription="Ícone Produtos" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sair"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
 
 
 

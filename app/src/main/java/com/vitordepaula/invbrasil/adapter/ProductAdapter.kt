@@ -41,6 +41,7 @@ class ProductAdapter (
             quantityCurrent == 0 -> {
                 holder.txtQuantity.text = "Esgotado"
                 holder.txtQuantity.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_light))
+                holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_card_red)
             }
             quantityCurrent < quantityMin -> {
                 holder.txtQuantity.text = "Baixo: ${product.quantidade}"
