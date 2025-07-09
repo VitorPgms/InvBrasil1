@@ -2,6 +2,9 @@ package com.vitordepaula.invbrasil.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -42,9 +45,31 @@ class ScreenSale : AppCompatActivity() {
 
         saleDao = AppDatabase.getIntance(this).saleDao()
 
+        val month = listOf(
+            "Todos", "01/2025", "02/2025", "03/2025", "04/2025", "05/2025", "06/2025", "07/2025",
+            "08/2025", "09/2025", "10/2025", "11/2025", "12/2025"
+        )
+        val adapterMonth = ArrayAdapter(this, android.R.layout.simple_spinner_item, month)
+        adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerMonth.adapter = adapterMonth
+
         binding.btnRegisterSale.setOnClickListener {
             val intent = Intent(this, ScreenSaleRegister::class.java)
             startActivity(intent)
+        }
+
+        binding.spinnerMonth.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val monthSelected = month[position]
+                loadSale(filter = if (monthSelected == "Todos") null else monthSelected)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         loadSale()
@@ -56,15 +81,25 @@ class ScreenSale : AppCompatActivity() {
         loadSale()
     }
 
-    private fun loadSale(){
+    private fun loadSale(filter: String? = null){
         CoroutineScope(Dispatchers.IO).launch {
             val sales = saleDao.listAll()
 
-            val bundledSale =  sales
-                .groupBy { sales ->
-                    val sdfInput = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-                    val sdfMonthYear = SimpleDateFormat("MM/yyyy", Locale.getDefault())
+            val saleFilter = if (filter == null) {
+                sales
+            } else {
+                sales.filter { sale ->
+                    val sdfInput = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val sdfFilter = SimpleDateFormat("MM/yyyy", Locale.getDefault())
+                    val data = sdfInput.parse(sale.dataSale)
+                    sdfFilter.format(data!!) == filter
+                }
+            }
 
+            val bundledSale =  saleFilter
+                .groupBy { sales ->
+                    val sdfInput = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val sdfMonthYear = SimpleDateFormat("MM/yyyy", Locale.getDefault())
                     val data = sdfInput.parse(sales.dataSale)
                     sdfMonthYear.format(data!!)
                 }

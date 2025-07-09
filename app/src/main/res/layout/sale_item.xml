@@ -11,18 +11,61 @@
     android:padding="10dp"
     android:background="@drawable/bg_card_item">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            />
+        <TextView
+            android:id="@+id/txtData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="10dp"
+            />
+
+
+
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/txtNome"
+        android:id="@+id/txtAdress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome"
+        android:text="@string/text_address"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_gravity="start"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         />
+
+    <TextView
+        android:id="@+id/txtProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_product"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="start"
+        android:layout_marginStart="10dp"
+        />
+
 
 
 
@@ -37,7 +80,7 @@
             android:id="@+id/txtQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quantidade"
+            android:text="@string/text_quantity"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -49,7 +92,7 @@
             android:id="@+id/txtPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Preço"
+            android:text="@string/text_price"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"

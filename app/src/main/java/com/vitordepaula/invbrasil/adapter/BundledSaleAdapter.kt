@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.vitordepaula.invbrasil.databinding.SaleItemBinding
 import com.vitordepaula.invbrasil.model.BundledSale
 import com.vitordepaula.invbrasil.model.Sale
 
@@ -33,14 +34,15 @@ class BundledSaleAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == VIEW_TYPE_HEADER) {
-            val view = LayoutInflater.from(context)
-                .inflate(android.R.layout.simple_list_item_1, parent, false)
-            HeaderViewHolder(view)
-        } else {
-            val view = LayoutInflater.from(context)
-                .inflate(android.R.layout.simple_list_item_2, parent, false)
-            SaleViewHolder(view)
+        return when (viewType) {
+            VIEW_TYPE_HEADER -> {
+                val view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
+                HeaderViewHolder(view)
+            }
+             else -> {
+                val binding = SaleItemBinding.inflate(LayoutInflater.from(context), parent, false)
+                SaleViewHolder(binding)
+             }
         }
     }
 
@@ -61,11 +63,13 @@ class BundledSaleAdapter (
         }
     }
 
-    class SaleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class SaleViewHolder(private val binding: SaleItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(sale: Sale) {
-            (itemView.findViewById(android.R.id.text1) as TextView).text = sale.nameClient
-            (itemView.findViewById(android.R.id.text2) as TextView).text =
-                "${sale.dataSale}x ${sale.nameProduct} | ${sale.quantitySale}"
+            binding.txtName.text = "${sale.nameClient}"
+            binding.txtAdress.text = "${sale.address}"
+            binding.txtProduct.text = "${sale.nameProduct}"
+            binding.txtQuantity.text = "${sale.quantitySale}"
+            binding.txtData.text = "${sale.dataSale}"
         }
     }
 }

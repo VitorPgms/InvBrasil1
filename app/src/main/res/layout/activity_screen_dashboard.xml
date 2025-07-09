@@ -29,7 +29,7 @@
         android:id="@+id/txtApresentacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Olá"
+        android:text="@string/welcome"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="16dp"
@@ -54,7 +54,7 @@
         android:id="@+id/txtValor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Valor"
+        android:text="@string/text_value"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/txtApresentacao"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Produto"
+                android:text="@string/text_product"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Baixo Estoque"
+                android:text="@string/text_low_stocks"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/red"/>
@@ -184,7 +184,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Produtos"
+                android:text="@string/text_product"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
@@ -213,7 +213,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vendas"
+                android:text="@string/text_sale"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
@@ -242,7 +242,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categoria"
+                android:text="@string/text_category"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
@@ -271,7 +271,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gerar Arquivo"
+                android:text="@string/text_archive"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
@@ -301,7 +301,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sair"
+            android:text="@string/text_exit"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="#000000"

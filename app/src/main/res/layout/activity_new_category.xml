@@ -12,7 +12,7 @@
         android:id="@+id/editNameCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nome da Categoria" />
+        android:hint="@string/text_name" />
 
     <Button
         android:id="@+id/btSaveCategory"

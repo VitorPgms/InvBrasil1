@@ -3,13 +3,23 @@
 
     <!--Screen ScreenDashboard-->
     <string name="app_na">InvBrasil</string>
+    <string name="welcome">Olá</string>
+    <string name="text_value">Valor</string>
+    <string name="text_low_stocks">Baixo Estoque</string>
+    <string name="text_sale">Vendas</string>
+    <string name="text_category">Categorias</string>
+    <string name="text_archive">GerarArquivos</string>
+    <string name="text_exit">Sair</string>
+    <string name="text_product">Produtos</string>
+    <string name="text_view_stock">Mostrar baixo estoque</string>
 
-    <!--Screen MainActivity-->
-    <string name="name_main">Produtos</string>
-    <string name="text_low_stock">Mostrar baixo estoque</string>
-
-    <!--Screen RegisterProduct-->
-    <string name="app_ne">InvBrasil</string>
+    <string name="text_name">Nome</string>
+    <string name="text_quantity">Quantidade</string>
+    <string name="text_quantity_min">Quantidade Minima</string>
+    <string name="text_price">Preço</string>
+    <string name="text_address">Endereço</string>
+    <string name="text_color">Cor</string>
+    <string name="text_data">Data</string>
 
     <!--Screen UpdateProduct-->
     <string name="app_me">InvBrasil</string>
