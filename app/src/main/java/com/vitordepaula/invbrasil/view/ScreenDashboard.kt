@@ -52,6 +52,13 @@ class ScreenDashboard : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnExit.setOnClickListener {
+            val intent = Intent(this, ScreenArchive::class.java)
+            startActivity(intent)
+        }
+
+
+
         loadTotais()
     }
 
