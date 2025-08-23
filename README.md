@@ -62,7 +62,7 @@ O projeto utiliza Gradle. O Android Studio deve sincronizar automaticamente, mas
 # Executar o Projeto
 - Conecte um dispositivo Android ou use um emulador
 - Clique em #Run App
-
+```
 # Contribuições são bem-vindas!
 Se tiver ideias, sugestões ou encontrar problemas, fique à vontade para abrir uma issue ou enviar um pull request
 
