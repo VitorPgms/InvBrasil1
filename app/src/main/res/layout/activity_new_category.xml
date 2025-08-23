@@ -6,19 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.NewCategory">
+    tools:context=".view.NewCategory"
+    android:background="@color/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrar Categoria"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:layout_marginStart="24sp"
+        android:layout_marginTop="40sp"/>
 
     <EditText
         android:id="@+id/editNameCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/text_name" />
+        android:hint="@string/text_name"
+        android:background="@drawable/bg_card_item"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"/>
 
     <Button
         android:id="@+id/btSaveCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salvar"/>
+        android:text="Salvar"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/primaria"
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
 
 
 </LinearLayout>

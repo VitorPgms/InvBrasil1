@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/background"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -14,6 +14,17 @@
         android:orientation="vertical"
         tools:context=".view.RegisterProduct">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_register_product"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="24dp"
+            />
+
 
         <EditText
             android:id="@+id/editNome"
@@ -23,21 +34,24 @@
             android:inputType="text"
             android:maxLines="1"
             android:padding="15dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_card_item"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp">
 
             <Spinner
                 android:id="@+id/spinnerCategory"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_item"/>
 
             <ImageButton
                 android:id="@+id/btNewCategory"
@@ -58,10 +72,11 @@
             android:inputType="number"
             android:maxLength="3"
             android:padding="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
             android:layout_marginEnd="20dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="@drawable/bg_card_item"/>
 
         <EditText
             android:id="@+id/editQuantityMin"
@@ -71,10 +86,11 @@
             android:inputType="number"
             android:maxLength="3"
             android:padding="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
             android:layout_marginEnd="20dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="@drawable/bg_card_item"/>
 
         <EditText
             android:id="@+id/editColor"
@@ -84,10 +100,11 @@
             android:inputType="text"
             android:maxLines="1"
             android:padding="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
             android:layout_marginEnd="20dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="@drawable/bg_card_item"/>
 
         <EditText
             android:id="@+id/editPrice"
@@ -97,10 +114,11 @@
             android:inputType="number"
             android:maxLength="6"
             android:padding="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
             android:layout_marginEnd="20dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="@drawable/bg_card_item"/>
 
         <Button
             android:id="@+id/btnRegister"
@@ -108,10 +126,12 @@
             android:layout_height="wrap_content"
             android:text="Cadastrar"
             android:textSize="18sp"
-            android:backgroundTint="@color/blue"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/primaria"
+            android:textColor="@color/black"
             android:padding="15dp"
-            android:layout_margin="20dp"/>
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"/>
 
 
 

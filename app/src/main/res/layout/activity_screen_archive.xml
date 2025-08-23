@@ -16,7 +16,8 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_margin="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -33,13 +34,13 @@
 
         <Spinner
             android:id="@+id/spinnerMonth"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="48dp"
             android:background="@drawable/bg_card_item"/>
 
         <Spinner
             android:id="@+id/spinnerYear"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/bg_card_item"/>
@@ -61,10 +62,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gerar Arquivo"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="124dp"/>
+        android:layout_marginBottom="124dp"
+        android:backgroundTint="@color/primaria"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

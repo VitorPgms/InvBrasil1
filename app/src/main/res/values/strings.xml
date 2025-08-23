@@ -14,6 +14,14 @@
     <string name="text_view_stock">Mostrar baixo estoque</string>
     <string name="edit_text_category">Digite o nome da Categoria</string>
 
+
+    <!--Title-->
+    <string name="text_register_product">Registrar Produto</string>
+    <string name="text_update_product">Atualizar Produto</string>
+    <string name="text_register_sale">Registrar Venda</string>
+
+    <string name="imagebtn_description">Adicionar categoria</string>
+
     <string name="text_name">Nome</string>
     <string name="text_quantity">Quantidade</string>
     <string name="text_quantity_min">Quantidade Minima</string>
